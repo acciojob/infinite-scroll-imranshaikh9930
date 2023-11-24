@@ -1,29 +1,26 @@
-//your code here!
+let elementNumber = 11; // Start with the next number after the existing items
 
-const list = document.getElementById("list");
-const totalItems = 10; // Number of initial list items
-const itemsToAdd = 2; // Number of items to add when reaching the end
-
-// Function to add items to the list
-function addItems() {
-	while(i<itemsToAdd){
-		  const newItem = document.createElement("li");
-        newItem.textContent = `List Item ${totalItems + i}`;
-        list.appendChild(newItem);
-
-	}
-    // for (let i = 1; i <= itemsToAdd; i++) {
-      
-    // }
-}
-
-// Initial items
-addItems();
-
-// Event listener to check if the user has scrolled to the end of the list
-list.addEventListener("scroll", function () {
-    if (list.scrollTop + list.clientHeight >= list.scrollHeight) {
-        // User has scrolled to the end, add more items
-        addItems();
+    function addTenElements() {
+      const ol = document.getElementById("infi-list");
+      for (let i = 1; i <= 10; i++) {
+        const li = document.createElement("li");
+        li.innerText = `List Item ${elementNumber++}`;
+        ol.appendChild(li);
+      }
     }
-})
+
+    const infiList = document.getElementById("infi-list");
+
+    infiList.addEventListener("scroll", () => {
+      const totalScrollableHeight = infiList.scrollHeight;
+      const visibleHeight = infiList.clientHeight;
+      const scrolledHeight = infiList.scrollTop;
+      const remainingHeightToBeScrolled = totalScrollableHeight - visibleHeight - scrolledHeight;
+
+      if (remainingHeightToBeScrolled <= 4) {
+        addTenElements();
+      }
+    });
+
+    // Initial load
+    addTenElements();
